@@ -47,6 +47,7 @@ export default class TMBD {
       })
     );
 
+    // Unique recommendations that have valid images
     const filteredRecs = _.uniqBy(recommendations, rec => rec.movie.id).filter(
       rec => rec.recommendations.length > 0 && !_.isNull(rec.movie.backdrop_path && !_.isNull(rec.movie.poster_path))
     );

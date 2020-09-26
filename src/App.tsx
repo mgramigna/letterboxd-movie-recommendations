@@ -28,6 +28,7 @@ const App = () => {
   const [ratingRange, setRatingRange] = useState<number[]>([4.5, 5.0]);
   const [loading, setLoading] = useState<boolean>(false);
 
+  // Parse CSV content as text and set state accordingly
   const onDrop = useCallback(files => {
     const csv = files[0];
     setFile(csv.name);
@@ -45,14 +46,15 @@ const App = () => {
         const csvJson = await parseData(csvData, ratingRange);
         const tmdb = new TMBD(csvJson);
         const apiResults = await tmdb.getRecommendations();
+
         setResults(apiResults);
         setLoading(false);
 
+        // Flatten and dedupe recommendations for CSV export
         const recs = apiResults.recommendations.map(r => r.recommendations);
+        const uniqueRecs = _.uniqBy(_.flatten(recs), (m: Movie) => m.id);
 
-        const combined = apiResults.common.concat(_.flatten(recs));
-        const uniqueCombined = _.uniqBy(combined, (m: Movie) => m.id);
-        const updatedCSVExport = uniqueCombined.map(m => {
+        const updatedCSVExport = uniqueRecs.map(m => {
           return [m.release_date, m.title];
         });
 

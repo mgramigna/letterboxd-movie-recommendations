@@ -1,5 +1,6 @@
-import { Movie } from './letterboxd';
-
+/**
+ * Result of a search query from TMDB API
+ */
 export interface SearchResult {
   page: Number;
   total_results: Number;
@@ -7,6 +8,9 @@ export interface SearchResult {
   results: Movie[];
 }
 
+/**
+ * Object for a movie from TMDB
+ */
 export interface Movie {
   id: string;
   title: string;
@@ -24,12 +28,18 @@ export interface Movie {
   release_date: string;
 }
 
+/**
+ * Resulting aggregated results from TMDB util
+ */
 export interface APIResult {
   recommendations: MovieRec[];
   common: Movie[];
 }
 
-export interface MovieRec {
+/**
+ * Each entry in the resulting recommendations
+ */
+interface MovieRec {
   movie: Movie;
   recommendations: Movie[];
 }
