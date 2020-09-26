@@ -46,8 +46,8 @@ const App = () => {
   useEffect(() => {
     async function getData() {
       if (csvData !== null) {
-        const csvJson = await parseData(csvData, ratingRange);
-        const tmdb = new TMBD(csvJson);
+        const csvJson = await parseData(csvData);
+        const tmdb = new TMBD(csvJson, ratingRange);
         const apiResults = await tmdb.getRecommendations();
 
         setResults(apiResults);

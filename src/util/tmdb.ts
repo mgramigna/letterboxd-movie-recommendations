@@ -7,9 +7,14 @@ import { RatingCSVRow } from '../types/letterboxd';
 export default class TMBD {
   httpClient: AxiosInstance;
   lbData: RatingCSVRow[];
+  watchedFilms: string[];
 
-  constructor(lbData: RatingCSVRow[]) {
-    this.lbData = lbData;
+  constructor(lbData: RatingCSVRow[], ratingRange: number[]) {
+    // List of watched film titles
+    this.watchedFilms = lbData.map(r => r.Name);
+
+    // Filter data in rating range
+    this.lbData = lbData.filter(m => parseFloat(m.Rating) >= ratingRange[0] && parseFloat(m.Rating) <= ratingRange[1]);
     this.httpClient = axios.create({
       baseURL: 'https://api.themoviedb.org/3',
       headers: {
@@ -40,9 +45,12 @@ export default class TMBD {
       ratedMovies.map(async movie => {
         const res = await this.httpClient.get(`/movie/${movie.id}/recommendations`);
         const recs = res.data as SearchResult;
+
+        const unwatchedRecs = recs.results.filter(f => !_.includes(this.watchedFilms, f.title));
+
         return {
           movie,
-          recommendations: recs.results.slice(0, 5)
+          recommendations: unwatchedRecs.slice(0, 5)
         };
       })
     );
