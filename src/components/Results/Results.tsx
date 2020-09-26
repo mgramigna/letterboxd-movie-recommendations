@@ -15,7 +15,9 @@ const Results = ({ results }: Props) => {
       {results.common.map(movie => (
         <Grid container key={movie.id} direction="row" justify="center">
           <Grid item xs={3}>
-            <img alt={`${movie.title}-poster`} src={`https://image.tmdb.org/t/p/w300${movie.backdrop_path}`} />
+            <a href={`https://themoviedb.org/movie/${movie.id}`} rel="noopener noreferrer" target="_blank">
+              <img alt={`${movie.title}-poster`} src={`https://image.tmdb.org/t/p/w300${movie.backdrop_path}`} />
+            </a>
           </Grid>
           <Grid item xs>
             <Typography variant="h5">{movie.title}</Typography>
