@@ -9,11 +9,17 @@ import Results from './components/Results';
 import { Button, CircularProgress, Grid, IconButton, Slider, Tooltip, Typography } from '@material-ui/core';
 import { Help } from '@material-ui/icons';
 import styled from 'styled-components';
+import DetailsModal from './components/DetailsModal';
 
 const CSVDownloadLink = styled(CSVLink)`
   text-decoration: none;
   color: inherit;
 `;
+
+interface ModalState {
+  isOpen: boolean;
+  movie: Movie | null;
+}
 
 const App = () => {
   const [file, setFile] = useState<string | null>(null);
@@ -23,6 +29,7 @@ const App = () => {
   const [enableCSVDownload, setEnableCSVDownload] = useState<boolean>(false);
   const [ratingRange, setRatingRange] = useState<number[]>([4.5, 5.0]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [modalState, setModalState] = useState<ModalState>({ isOpen: false, movie: null });
 
   // Parse CSV content as text and set state accordingly
   const onDrop = useCallback(files => {
@@ -70,8 +77,19 @@ const App = () => {
     setCSVExport([[]]);
   };
 
+  const openModal = (movie: Movie) => {
+    setModalState({ isOpen: true, movie });
+  };
+
+  const closeModal = () => {
+    setModalState({ isOpen: false, movie: null });
+  };
+
   return (
     <Grid container direction="column" justify="center" alignItems="center" style={{ padding: '12px' }}>
+      {modalState.movie !== null && (
+        <DetailsModal open={modalState.isOpen} movie={modalState.movie} onClose={closeModal} />
+      )}
       {file === null && <FileUpload onDrop={onDrop} />}
       <Grid item xs={12}>
         <Typography gutterBottom>
@@ -128,7 +146,7 @@ const App = () => {
           </li>
         </ol>
       </Grid>
-      {results && <Results results={results} />}
+      {results && <Results results={results} openModal={openModal} />}
       {loading && <CircularProgress />}
     </Grid>
   );

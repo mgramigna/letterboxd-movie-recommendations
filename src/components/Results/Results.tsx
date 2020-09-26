@@ -1,12 +1,20 @@
 import React from 'react';
 import { Divider, Grid, Tooltip, Typography } from '@material-ui/core';
 import { APIResult, Movie } from '../../types/tmdb';
+import styled from 'styled-components';
 
 interface Props {
   results: APIResult;
+  openModal: Function;
 }
 
-const Results = ({ results }: Props) => {
+const MoviePoster = styled.img`
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Results = ({ results, openModal }: Props) => {
   return (
     <Grid container direction="column" spacing={2}>
       <Grid container direction="column" justify="center" alignItems="center">
@@ -36,9 +44,12 @@ const Results = ({ results }: Props) => {
             {rec.recommendations.map((m: Movie) => (
               <Grid item key={m.id} xs>
                 <Tooltip title={m.title} placement="right">
-                  <a href={`https://themoviedb.org/movie/${m.id}`} rel="noopener noreferrer" target="_blank">
-                    <img key={m.id} alt={`${m.title}-poster`} src={`https://image.tmdb.org/t/p/w154${m.poster_path}`} />
-                  </a>
+                  <MoviePoster
+                    key={m.id}
+                    alt={`${m.title}-poster`}
+                    src={`https://image.tmdb.org/t/p/w154${m.poster_path}`}
+                    onClick={() => openModal(m)}
+                  />
                 </Tooltip>
               </Grid>
             ))}
