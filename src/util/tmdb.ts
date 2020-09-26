@@ -23,13 +23,13 @@ export default class TMBD {
     const searchResults = (await Promise.all(
       this.lbData.map(async movie => {
         const res = await this.httpClient.get(`/search/movie?query=${encodeURIComponent(movie.Name)}`);
-        return res.data;
+        return { ...res.data, rating: movie.Rating };
       })
     )) as SearchResult[];
 
     // First search result is most popular
     // TODO: Add some type of filter that guarantees movies match
-    return searchResults.filter(r => r.total_results > 0).map(r => r.results[0]);
+    return searchResults.filter(r => r.total_results > 0).map(r => ({ ...r.results[0], rating: r.rating }));
   }
 
   async getRecommendations(): Promise<APIResult> {

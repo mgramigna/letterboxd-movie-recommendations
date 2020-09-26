@@ -15,10 +15,6 @@ const CSVDownloadLink = styled(CSVLink)`
   color: inherit;
 `;
 
-const RatingSlider = styled(Slider)`
-  width: 400px;
-`;
-
 const App = () => {
   const [file, setFile] = useState<string | null>(null);
   const [csvData, setCSVData] = useState<string | null>(null);
@@ -75,7 +71,7 @@ const App = () => {
   };
 
   return (
-    <Grid container direction="column" justify="center" alignItems="center">
+    <Grid container direction="column" justify="center" alignItems="center" style={{ padding: '12px' }}>
       {file === null && <FileUpload onDrop={onDrop} />}
       <Grid item xs={12}>
         <Typography gutterBottom>
@@ -86,7 +82,7 @@ const App = () => {
             </IconButton>
           </Tooltip>
         </Typography>
-        <RatingSlider
+        <Slider
           value={ratingRange}
           valueLabelDisplay="auto"
           step={0.5}
