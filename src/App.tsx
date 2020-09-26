@@ -6,12 +6,17 @@ import { APIResult, Movie } from './types/tmdb';
 import { parseData } from './util/csv';
 import TMBD from './util/tmdb';
 import Results from './components/Results';
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Button, CircularProgress, Grid, IconButton, Slider, Tooltip, Typography } from '@material-ui/core';
+import { Help } from '@material-ui/icons';
 import styled from 'styled-components';
 
 const CSVDownloadLink = styled(CSVLink)`
   text-decoration: none;
   color: inherit;
+`;
+
+const RatingSlider = styled(Slider)`
+  width: 400px;
 `;
 
 const App = () => {
@@ -20,10 +25,13 @@ const App = () => {
   const [results, setResults] = useState<APIResult | null>(null);
   const [csvExport, setCSVExport] = useState<string[][]>([[]]);
   const [enableCSVDownload, setEnableCSVDownload] = useState<boolean>(false);
+  const [ratingRange, setRatingRange] = useState<number[]>([4.5, 5.0]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const onDrop = useCallback(files => {
     const csv = files[0];
     setFile(csv.name);
+    setLoading(true);
     const reader = new FileReader();
     reader.onload = () => {
       setCSVData(reader.result as string);
@@ -34,10 +42,11 @@ const App = () => {
   useEffect(() => {
     async function getData() {
       if (csvData !== null) {
-        const csvJson = await parseData(csvData);
+        const csvJson = await parseData(csvData, ratingRange);
         const tmdb = new TMBD(csvJson);
         const apiResults = await tmdb.getRecommendations();
         setResults(apiResults);
+        setLoading(false);
 
         const recs = apiResults.recommendations.map(r => r.recommendations);
 
@@ -53,7 +62,7 @@ const App = () => {
       }
     }
     getData();
-  }, [csvData]);
+  }, [csvData, ratingRange]);
 
   const clear = () => {
     setFile(null);
@@ -66,6 +75,28 @@ const App = () => {
   return (
     <Grid container direction="column" justify="center" alignItems="center">
       {file === null && <FileUpload onDrop={onDrop} />}
+      <Grid item xs={12}>
+        <Typography gutterBottom>
+          Valid Rating Range (Your Ratings){' '}
+          <Tooltip title="Set the min/max rating value to be considered for recommendations">
+            <IconButton>
+              <Help />
+            </IconButton>
+          </Tooltip>
+        </Typography>
+        <RatingSlider
+          value={ratingRange}
+          valueLabelDisplay="auto"
+          step={0.5}
+          marks
+          min={0.5}
+          max={5.0}
+          onChange={(e: any, newValue: number | number[]) => {
+            setRatingRange(newValue as number[]);
+          }}
+          disabled={file !== null}
+        />
+      </Grid>
       <Grid item>
         <Button onClick={clear}>clear</Button>
       </Grid>
@@ -100,6 +131,7 @@ const App = () => {
         </ol>
       </Grid>
       {results && <Results results={results} />}
+      {loading && <CircularProgress />}
     </Grid>
   );
 };
