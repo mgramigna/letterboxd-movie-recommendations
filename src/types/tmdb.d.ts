@@ -21,7 +21,7 @@ export interface Movie {
   vote_average: Number;
   vote_count: Number;
   video: boolean;
-  release_date: Date;
+  release_date: string;
 }
 
 export interface APIResult {
