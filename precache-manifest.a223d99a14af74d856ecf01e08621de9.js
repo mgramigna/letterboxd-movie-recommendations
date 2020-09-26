@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "aded15bc90454030a4d4ca1d4ef90793",
+    "revision": "83627f40f56bec1b33920c7265df6e52",
     "url": "/letterboxd-movie-recommendations/index.html"
   },
   {
-    "revision": "d269945d767064894b00",
+    "revision": "dfcb185d4c068504e7e0",
     "url": "/letterboxd-movie-recommendations/static/css/main.5ecd60fb.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/letterboxd-movie-recommendations/static/js/2.1104d356.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "d269945d767064894b00",
-    "url": "/letterboxd-movie-recommendations/static/js/main.29a20ba7.chunk.js"
+    "revision": "dfcb185d4c068504e7e0",
+    "url": "/letterboxd-movie-recommendations/static/js/main.4a8c4aa7.chunk.js"
   },
   {
     "revision": "f6211ab0d028477bf81e",
