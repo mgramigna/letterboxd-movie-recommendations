@@ -25,16 +25,18 @@ export default class TMBD {
 
   async getTMBDMovies(): Promise<Movie[]> {
     // Search TMDB for corresponding movie from Letterboxd data
-    const searchResults = (await Promise.all(
+    return (await Promise.all(
       this.lbData.map(async movie => {
-        const res = await this.httpClient.get(`/search/movie?query=${encodeURIComponent(movie.Name)}`);
-        return { ...res.data, rating: movie.Rating };
-      })
-    )) as SearchResult[];
+        const res = await this.httpClient.get(
+          `/search/movie?query=${encodeURIComponent(movie.Name)}&year=${movie.Year}`
+        );
 
-    // First search result is most popular
-    // TODO: Add some type of filter that guarantees movies match
-    return searchResults.filter(r => r.total_results > 0).map(r => ({ ...r.results[0], rating: r.rating }));
+        // Most matching search result given title and year
+        // Not perfect but works most of the time
+        const searchResults = res.data as SearchResult;
+        return { ...searchResults.results[0], rating: movie.Rating };
+      })
+    )) as Movie[];
   }
 
   async getRecommendations(): Promise<APIResult> {
