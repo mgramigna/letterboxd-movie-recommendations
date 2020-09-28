@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/letterboxd-movie-recommendations/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/letterboxd-movie-recommendations/static/js/main.1c1af259.chunk.js",
-    "main.js.map": "/letterboxd-movie-recommendations/static/js/main.1c1af259.chunk.js.map",
+    "main.js": "/letterboxd-movie-recommendations/static/js/main.da0152e3.chunk.js",
+    "main.js.map": "/letterboxd-movie-recommendations/static/js/main.da0152e3.chunk.js.map",
     "runtime-main.js": "/letterboxd-movie-recommendations/static/js/runtime-main.2c402839.js",
     "runtime-main.js.map": "/letterboxd-movie-recommendations/static/js/runtime-main.2c402839.js.map",
-    "static/js/2.bfa003f1.chunk.js": "/letterboxd-movie-recommendations/static/js/2.bfa003f1.chunk.js",
-    "static/js/2.bfa003f1.chunk.js.map": "/letterboxd-movie-recommendations/static/js/2.bfa003f1.chunk.js.map",
+    "static/js/2.2e424952.chunk.js": "/letterboxd-movie-recommendations/static/js/2.2e424952.chunk.js",
+    "static/js/2.2e424952.chunk.js.map": "/letterboxd-movie-recommendations/static/js/2.2e424952.chunk.js.map",
     "index.html": "/letterboxd-movie-recommendations/index.html",
-    "precache-manifest.4f76b90416d5aa208f42b0e3b818d0b9.js": "/letterboxd-movie-recommendations/precache-manifest.4f76b90416d5aa208f42b0e3b818d0b9.js",
+    "precache-manifest.9a49a2b764a252ae9f70ff7339f61de4.js": "/letterboxd-movie-recommendations/precache-manifest.9a49a2b764a252ae9f70ff7339f61de4.js",
     "service-worker.js": "/letterboxd-movie-recommendations/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "/letterboxd-movie-recommendations/static/css/main.5ecd60fb.chunk.css.map",
-    "static/js/2.bfa003f1.chunk.js.LICENSE.txt": "/letterboxd-movie-recommendations/static/js/2.bfa003f1.chunk.js.LICENSE.txt"
+    "static/js/2.2e424952.chunk.js.LICENSE.txt": "/letterboxd-movie-recommendations/static/js/2.2e424952.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.2c402839.js",
-    "static/js/2.bfa003f1.chunk.js",
+    "static/js/2.2e424952.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.1c1af259.chunk.js"
+    "static/js/main.da0152e3.chunk.js"
   ]
 }
