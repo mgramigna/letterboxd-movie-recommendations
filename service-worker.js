@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/letterboxd-movie-recommendations/precache-manifest.9a49a2b764a252ae9f70ff7339f61de4.js"
+  "/letterboxd-movie-recommendations/precache-manifest.3831a6039eb6836445c764487acb7dbb.js"
 );
 
 self.addEventListener('message', (event) => {
